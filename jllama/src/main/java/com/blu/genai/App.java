@@ -12,11 +12,12 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * @todo
- * Caused by: java.lang.UnsupportedOperationException: ARM_128
- * https://github.com/tjake/Jlama/issues/68
  * Have to use arm based JVM and without SDK manager
- * java -jar ./target/jllama-runnable.jar
+ * java 23.0.2 2025-01-21
+ * Java(TM) SE Runtime Environment (build 23.0.2+7-58)
+ * Java HotSpot(TM) 64-Bit Server VM (build 23.0.2+7-58, mixed mode, sharing)
+ * export JDK_JAVA_OPTIONS="--add-modules jdk.incubator.vector --enable-preview"
+ * mvn exec:java -Dexec.mainClass=com.blu.genai.App
  */
 public class App {
     public static void main(String[] args) throws IOException {
