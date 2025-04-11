@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.blu.genai</groupId>
+  <artifactId>jllama</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>jllama</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>17</maven.compiler.release>
+    <jlama.version>0.8.4</jlama.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.11.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Optionally: parameterized tests support -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.tjake</groupId>
+      <artifactId>jlama-core</artifactId>
+      <version>${jlama.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tjake</groupId>
+      <artifactId>jlama-native</artifactId>
+      <!-- supports linux-x86_64, macos-x86_64/aarch_64, windows-x86_64
+           Use https://github.com/trustin/os-maven-plugin to detect os and arch
+      <classifier>${os.detected.name}-${os.detected.arch}</classifier>-->
+      <classifier>${os.detected.classifier}</classifier>
+      <version>${jlama.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>jllama-1.0-SNAPSHOT</finalName>
+       <plugins>
+         <!--<plugin>
+           <artifactId>maven-jar-plugin</artifactId>
+           <configuration>
+             <classifier>${os.detected.classifier}</classifier>
+           </configuration>
+         </plugin> -->
+        <plugin>
+          <groupId>com.jolira</groupId>
+          <artifactId>onejar-maven-plugin</artifactId>
+          <version>1.4.4</version>
+          <executions>
+            <execution>
+              <id>jllama-embeded</id>
+              <configuration>
+                <mainClass>com.blu.genai.App</mainClass>
+                <attachToBuild>true</attachToBuild>
+                <classifier>onejar</classifier>
+                <filename>jllama-runnable.jar</filename>
+              </configuration>
+              <goals>
+                <goal>one-jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    <extensions>
+      <extension>
+        <groupId>kr.motd.maven</groupId>
+        <artifactId>os-maven-plugin</artifactId>
+        <version>1.7.0</version>
+      </extension>
+    </extensions>
+  </build>
+</project>
